@@ -41,10 +41,19 @@ if (ENV.NODE_ENV === "production") {
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(ENV.PORT, () => console.log("Server is running on port:", ENV.PORT));
+    if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+      app.listen(ENV.PORT, () => console.log("Server is running on port:", ENV.PORT));
+    }
   } catch (error) {
     console.error("💥 Error starting the server", error);
   }
 };
 
-startServer();
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+  startServer();
+} else {
+  // in production/vercel, we still need to connect to DB
+  connectDB().catch(err => console.error("Database connection failed", err));
+}
+
+export default app;
