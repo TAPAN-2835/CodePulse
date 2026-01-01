@@ -1,6 +1,7 @@
 {
   "name": "talent-iq",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend && mkdir -p public && cp -r frontend/dist/* public/",
@@ -9,5 +10,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@clerk/express": "^1.7.41",
+    "@stream-io/node-sdk": "^0.7.12",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "inngest": "^3.44.3",
+    "mongoose": "^8.19.1",
+    "stream-chat": "^9.24.0"
+  }
 }
