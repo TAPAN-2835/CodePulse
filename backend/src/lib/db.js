@@ -10,7 +10,12 @@ export const connectDB = async () => {
     const conn = await mongoose.connect(ENV.DB_URL);
     console.log("✅ Connected to MongoDB:", conn.connection.host);
   } catch (error) {
-    console.error("❌ Error connecting to MongoDB", error);
-    process.exit(1); // 0 means success, 1 means failure
+    console.error("❌ CRITICAL: Error connecting to MongoDB:", {
+      message: error.message,
+      url: ENV.DB_URL ? "Defined (Hidden)" : "UNDEFINED"
+    });
+    // In a serverless function, we might not want to process.exit(1) as it could kill the container for others
+    // but on Vercel it's usually fine to throw and let the function fail
+    throw error;
   }
 };

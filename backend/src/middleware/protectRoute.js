@@ -50,8 +50,15 @@ export const protectRoute = [
 
       next();
     } catch (error) {
-      console.error("Error in protectRoute middleware", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      console.error("CRITICAL: Error in protectRoute middleware:", {
+        message: error.message,
+        stack: error.stack,
+        clerkId: req.auth()?.userId
+      });
+      res.status(500).json({
+        message: "Internal Server Error in protectRoute",
+        error: process.env.NODE_ENV === "development" ? error.message : undefined
+      });
     }
   },
 ];
