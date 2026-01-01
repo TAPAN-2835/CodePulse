@@ -2,7 +2,13 @@ import { createClerkClient, requireAuth } from "@clerk/express";
 import User from "../models/User.js";
 import { upsertStreamUser } from "../lib/stream.js";
 
-const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY });
+const secretKey = process.env.CLERK_SECRET_KEY || process.env.VITE_CLERK_SECRET_KEY; // handle common variations
+
+if (!secretKey) {
+  console.error("❌ CRITICAL: CLERK_SECRET_KEY is missing in environment variables!");
+}
+
+const clerkClient = createClerkClient({ secretKey });
 
 export const protectRoute = [
   requireAuth(),

@@ -36,7 +36,10 @@ export async function createSession(req, res) {
 
     res.status(201).json({ session });
   } catch (error) {
-    console.log("Error in createSession controller:", error.message);
+    console.error(`Error in ${error.name} controller:`, {
+      message: error.message,
+      stack: error.stack
+    });
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
@@ -51,7 +54,10 @@ export async function getActiveSessions(_, res) {
 
     res.status(200).json({ sessions });
   } catch (error) {
-    console.log("Error in getActiveSessions controller:", error.message);
+    console.error(`Error in getActiveSessions controller:`, {
+      message: error.message,
+      stack: error.stack
+    });
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
@@ -70,7 +76,10 @@ export async function getMyRecentSessions(req, res) {
 
     res.status(200).json({ sessions });
   } catch (error) {
-    console.log("Error in getMyRecentSessions controller:", error.message);
+    console.error(`Error in getMyRecentSessions controller:`, {
+      message: error.message,
+      stack: error.stack
+    });
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
@@ -87,7 +96,10 @@ export async function getSessionById(req, res) {
 
     res.status(200).json({ session });
   } catch (error) {
-    console.log("Error in getSessionById controller:", error.message);
+    console.error(`Error in getSessionById controller:`, {
+      message: error.message,
+      stack: error.stack
+    });
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
@@ -121,7 +133,10 @@ export async function joinSession(req, res) {
 
     res.status(200).json({ session });
   } catch (error) {
-    console.log("Error in joinSession controller:", error.message);
+    console.error(`Error in joinSession controller:`, {
+      message: error.message,
+      stack: error.stack
+    });
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
@@ -158,7 +173,10 @@ export async function endSession(req, res) {
 
     res.status(200).json({ session, message: "Session ended successfully" });
   } catch (error) {
-    console.log("Error in endSession controller:", error.message);
+    console.error(`Error in endSession controller:`, {
+      message: error.message,
+      stack: error.stack
+    });
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
