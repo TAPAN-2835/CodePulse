@@ -1,6 +1,7 @@
 import { createClerkClient, requireAuth } from "@clerk/express";
 import User from "../models/User.js";
 import { upsertStreamUser } from "../lib/stream.js";
+import { connectDB } from "../lib/db.js";
 
 const secretKey = process.env.CLERK_SECRET_KEY || process.env.VITE_CLERK_SECRET_KEY; // handle common variations
 
@@ -14,6 +15,9 @@ export const protectRoute = [
   requireAuth(),
   async (req, res, next) => {
     try {
+      // Ensure DB is connected before doing anything
+      await connectDB();
+
       const clerkId = req.auth().userId;
       console.log("[DEBUG] protectRoute - clerkId:", clerkId);
 
